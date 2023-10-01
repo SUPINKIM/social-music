@@ -1,0 +1,14 @@
+{
+    "extends": "@tsconfig/react-native/tsconfig.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"],
+            "@components/*": ["src/components/*"],
+            "@screens/*": ["src/screens/*"]
+        },
+        "jsx": "react-native"
+    },
+    "include": ["./src/*", "App.tsx"],
+    "exclude": ["node_modules"]
+}

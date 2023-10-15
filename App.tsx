@@ -5,16 +5,22 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Home from '@screens/home';
 import Login from '@screens/login';
+import { useNavigator } from '@/hooks/useNavigator';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+    const { route } = useNavigator();
+
     return (
         <PaperProvider>
             <NavigationContainer>
                 <Stack.Navigator screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name="Home" component={Home} />
-                    <Stack.Screen name="Login" component={Login} />
+                    {route
+                        .filter((path) => !path.child)
+                        .map(({ name, component }) => (
+                            <Stack.Screen name={name} component={component} />
+                        ))}
                 </Stack.Navigator>
             </NavigationContainer>
         </PaperProvider>

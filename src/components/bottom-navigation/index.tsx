@@ -3,11 +3,13 @@ import { BottomNavigation as BottomNav } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import Main from '@screens/home/main';
+import { CommonActions } from '@react-navigation/native';
+import { useNavigator } from '@/hooks/useNavigator';
 
 const Tab = createBottomTabNavigator();
 
 const BottomNavigation = () => {
+    const { route } = useNavigator();
     return (
         <Tab.Navigator
             screenOptions={{
@@ -19,6 +21,7 @@ const BottomNavigation = () => {
                     navigationState={state}
                     safeAreaInsets={insets}
                     onTabPress={({ route, preventDefault }) => {
+                        console.log(route);
                         const event = navigation.emit({
                             type: 'tabPress',
                             target: route.key,
@@ -29,6 +32,11 @@ const BottomNavigation = () => {
                             preventDefault();
                             return;
                         }
+
+                        navigation.dispatch({
+                            ...CommonActions.navigate(route.name, route.params),
+                            target: state.key,
+                        });
                     }}
                     renderIcon={({ route, focused, color }) => {
                         const { options } = descriptors[route.key];
@@ -52,16 +60,26 @@ const BottomNavigation = () => {
                     }}
                 />
             )}>
-            <Tab.Screen
-                name="Main"
-                component={Main}
-                options={{
-                    tabBarLabel: 'Home',
-                    tabBarIcon: ({ color, size }) => {
-                        return <Icon name="home" size={size} color={color} />;
-                    },
-                }}
-            />
+            {route
+                .filter((path) => path.position === 'Bottom')
+                .map(({ name, component, label, iconName }) => (
+                    <Tab.Screen
+                        name={name}
+                        component={component}
+                        options={{
+                            tabBarLabel: label,
+                            tabBarIcon: ({ color, size }) => {
+                                return (
+                                    <Icon
+                                        name={iconName || ''}
+                                        size={size}
+                                        color={color}
+                                    />
+                                );
+                            },
+                        }}
+                    />
+                ))}
         </Tab.Navigator>
     );
 };

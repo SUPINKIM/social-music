@@ -3,12 +3,13 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "@/*": ["src/*"],
-            "@components/*": ["src/components/*"],
-            "@screens/*": ["src/screens/*"]
+            "@/*": ["./src/*"],
+            "@components/*": ["./src/components/*"],
+            "@screens/*": ["./src/screens/*"],
+            "@hooks/*": ["./src/hooks/*"]
         },
         "jsx": "react-native"
     },
-    "include": ["./src/*", "App.tsx"],
+    "include": ["./src/**/*.tsx", "./App.tsx"],
     "exclude": ["node_modules"]
 }

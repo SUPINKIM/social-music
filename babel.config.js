@@ -17,8 +17,10 @@ module.exports = function (api) {
                     ],
                     alias: {
                         // tests: ["./tests/"],
-                        '@components/*': 'components/*',
-                        '@screens/*': 'screens/*',
+                        '@': './src',
+                        '@components': './src/components',
+                        '@screens': './src/screens',
+                        '@hooks': './src/hooks',
                     },
                 },
             ],

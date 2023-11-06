@@ -1,6 +1,7 @@
 import Home from '@/screens/home';
 import Login from '@/screens/login';
 import MyPage from '@screens/my-page';
+import Chat from '@/screens/chat';
 
 interface IRoute {
     name: string;
@@ -13,15 +14,28 @@ interface IRoute {
 export const useNavigator = () => {
     const route: Array<IRoute> = [
         {
+            name: 'Login',
+            component: Login,
+        },
+        {
+            name: 'NewChat',
+            component: Chat,
+        },
+    ];
+
+    return {
+        route,
+    };
+};
+
+export const useBottomNavigator = () => {
+    const route: Array<IRoute> = [
+        {
             name: 'Home',
             component: Home,
             label: 'Home',
             position: 'Bottom',
             iconName: 'home',
-        },
-        {
-            name: 'Login',
-            component: Login,
         },
         {
             name: 'MyPage',

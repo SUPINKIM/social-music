@@ -19,6 +19,13 @@ const App = () => {
                         name="bottom-nav"
                         component={BottomNavigation}
                     />
+                    {route.map(({ name, component }) => (
+                        <Stack.Screen
+                            key={name}
+                            name={name}
+                            component={component}
+                        />
+                    ))}
                 </Stack.Navigator>
             </NavigationContainer>
         </PaperProvider>

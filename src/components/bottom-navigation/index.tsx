@@ -4,12 +4,12 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { CommonActions } from '@react-navigation/native';
-import { useNavigator } from '@/hooks/useNavigator';
+import { useBottomNavigator } from '@/hooks/useNavigator';
 
 const Tab = createBottomTabNavigator();
 
 const BottomNavigation = () => {
-    const { route } = useNavigator();
+    const { route } = useBottomNavigator();
     return (
         <Tab.Navigator
             screenOptions={{
@@ -59,27 +59,25 @@ const BottomNavigation = () => {
                     }}
                 />
             )}>
-            {route
-                .filter((path) => path.position === 'Bottom')
-                .map(({ name, component, label, iconName }) => (
-                    <Tab.Screen
-                        key={name}
-                        name={name}
-                        component={component}
-                        options={{
-                            tabBarLabel: label,
-                            tabBarIcon: ({ color, size }) => {
-                                return (
-                                    <Icon
-                                        name={iconName || ''}
-                                        size={size}
-                                        color={color}
-                                    />
-                                );
-                            },
-                        }}
-                    />
-                ))}
+            {route.map(({ name, component, label, iconName }) => (
+                <Tab.Screen
+                    key={name}
+                    name={name}
+                    component={component}
+                    options={{
+                        tabBarLabel: label,
+                        tabBarIcon: ({ color, size }) => {
+                            return (
+                                <Icon
+                                    name={iconName || ''}
+                                    size={size}
+                                    color={color}
+                                />
+                            );
+                        },
+                    }}
+                />
+            ))}
         </Tab.Navigator>
     );
 };

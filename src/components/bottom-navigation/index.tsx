@@ -21,7 +21,6 @@ const BottomNavigation = () => {
                     navigationState={state}
                     safeAreaInsets={insets}
                     onTabPress={({ route, preventDefault }) => {
-                        console.log(route);
                         const event = navigation.emit({
                             type: 'tabPress',
                             target: route.key,
@@ -64,6 +63,7 @@ const BottomNavigation = () => {
                 .filter((path) => path.position === 'Bottom')
                 .map(({ name, component, label, iconName }) => (
                     <Tab.Screen
+                        key={name}
                         name={name}
                         component={component}
                         options={{
